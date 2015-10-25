@@ -6,7 +6,7 @@
 #include <Adafruit_LSM303_U.h>
 #include "SensorController.h"
 #include "LedController.h"
-#include "Timeline.h"
+#include "Clock.h"
 #include "Event.h"
 #include "LightPattern.h"
 
@@ -42,8 +42,7 @@ void loop()
   clock.tick();
   ledController.displayPattern();
 
-  sensorController.process();
-  sensorController.  
+  sensorController.process(); 
   //delay(500); 
   
   /* Display the results (acceleration is measured in m/s^2) */
