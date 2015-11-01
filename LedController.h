@@ -37,12 +37,12 @@ class LedController
   
   public:
     void initialize();
-    void displayPattern();
+    void displayPattern(uint8_t updatesPerSecond);
     void setupTotallyRandomPalette();
     void setupBlackAndWhiteStripedPalette();
     void setupPurpleAndGreenPalette();
     void changePalettePeriodically();
-    void fillLEDsFromPaletteColors( uint8_t colorIndex);  
+    void fillLEDsFromPaletteColors(CRGBPalette16 palette, TBlendType blendType, uint8_t brightness, uint8_t colorIndex);
 };
 
 #endif // LedController_h

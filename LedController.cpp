@@ -16,17 +16,14 @@ void LedController::initialize()
   Serial.println("Exiting LedController::initialize()");
 }
 
-void LedController::displayPattern()
+void LedController::displayPattern(uint8_t updatesPerSecond)
 {
-  changePalettePeriodically();
+  //changePalettePeriodically();
   
-  static uint8_t startIndex = 0;
-  startIndex = startIndex + 1; /* motion speed */
-
-  fillLEDsFromPaletteColors( startIndex);
+  // fillLEDsFromPaletteColors( startIndex);
   
   FastLED.show();
-  FastLED.delay(1000 / UPDATES_PER_SECOND);
+  FastLED.delay(1000 / updatesPerSecond);
 }
 
 // There are several different palettes of colors demonstrated here.
@@ -99,6 +96,19 @@ void LedController::setupPurpleAndGreenPalette()
     purple, purple, black,  black );
 }
 
+  
+    TBlendType   _blendType;
+    uint8_t _brightness;
+
+void LedController::fillLEDsFromPaletteColors(CRGBPalette16 palette, TBlendType blendType, uint8_t brightness, uint8_t colorIndex)
+{
+  for( int i = 0; i < NUM_LEDS; i++) {
+    _leds[i] = ColorFromPalette(palette, colorIndex, brightness, blendType);
+    colorIndex += 3;
+  }
+}
+
+/*
 void LedController::fillLEDsFromPaletteColors( uint8_t colorIndex)
 {
   uint8_t brightness = 255;
@@ -108,7 +118,7 @@ void LedController::fillLEDsFromPaletteColors( uint8_t colorIndex)
     colorIndex += 3;
   }
 }
-
+ */
 
 // This example shows how to set up a static color palette
 // which is stored in PROGMEM (flash), which is almost always more 

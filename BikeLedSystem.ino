@@ -1,4 +1,3 @@
-
 #include <Wire.h>
 #include <SoftwareSerial.h>
 #include <FastLED.h>
@@ -8,18 +7,17 @@
 #include "LedController.h"
 #include "Clock.h"
 #include "Event.h"
-#include "LightPattern.h"
+#include "LightPatternManager.h"
 
 SensorController sensorController;
 LedController ledController;
+
 Clock clock;
-Event* pEvent;
+LightPatternManager ligthPatternMgr(&clock, &ledController);
 
 SoftwareSerial mySerial(10, 11); // RX, TX
 
 void setup() {
-  // pEvent = new Event(&timeline, 10);
-  
   delay( 3000 ); // power-up safety delay
 
   Serial.begin(9600);
@@ -40,11 +38,9 @@ void setup() {
 void loop()
 {
   clock.tick();
-  ledController.displayPattern();
-
+  ligthPatternMgr.display(0);
   sensorController.process(); 
   //delay(500); 
-  
   /* Display the results (acceleration is measured in m/s^2) */
   /*
   Serial.print("X: "); Serial.print(event.acceleration.x); Serial.print("  ");
