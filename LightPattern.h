@@ -11,15 +11,14 @@ class LightPattern: public Event
     LedController* _pLedController;
     CRGBPalette16 _palette;
     TBlendType   _blendType;
-    uint8_t _updatesPerSecond;
+    uint8_t _frequency;
     uint8_t _brightness;
-    uint8_t _startIndex;
     void initialize(LedController* pLedController);
     
   public:
     LightPattern(Clock* pClock, LedController* pLedController);
     LightPattern(int duration, Clock* pClock, LedController* pLedController);
     void display();
-    void display(int updatesPerSecond);
+    void display(int frequency);
 };
 #endif // LightPattern_h

@@ -9,7 +9,6 @@
 #define BRIGHTNESS  64
 #define LED_TYPE    LPD8806
 #define COLOR_ORDER GRB
-#define UPDATES_PER_SECOND 100
 
 // This example shows several ways to set up and use 'palettes' of colors
 // with FastLED.
@@ -34,15 +33,16 @@ class LedController
     CRGB _leds[NUM_LEDS];
     CRGBPalette16 _currentPalette;
     TBlendType    _currentBlending;
+    uint8_t _startIndex;
   
   public:
     void initialize();
-    void displayPattern(uint8_t updatesPerSecond);
+    void displayPattern(uint8_t frequency);
     void setupTotallyRandomPalette();
     void setupBlackAndWhiteStripedPalette();
     void setupPurpleAndGreenPalette();
     void changePalettePeriodically();
-    void fillLEDsFromPaletteColors(CRGBPalette16 palette, TBlendType blendType, uint8_t brightness, uint8_t colorIndex);
+    void fillLEDsFromPaletteColors(CRGBPalette16 palette, TBlendType blendType, uint8_t brightness);
 };
 
 #endif // LedController_h

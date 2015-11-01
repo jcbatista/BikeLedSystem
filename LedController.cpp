@@ -12,18 +12,15 @@ void LedController::initialize()
   
   _currentPalette = RainbowColors_p;
   _currentBlending = BLEND;
+  _startIndex = 0;
   
   Serial.println("Exiting LedController::initialize()");
 }
 
-void LedController::displayPattern(uint8_t updatesPerSecond)
+void LedController::displayPattern(uint8_t frequency)
 {
-  //changePalettePeriodically();
-  
-  // fillLEDsFromPaletteColors( startIndex);
-  
   FastLED.show();
-  FastLED.delay(1000 / updatesPerSecond);
+  FastLED.delay(1000 / frequency);
 }
 
 // There are several different palettes of colors demonstrated here.
@@ -96,16 +93,14 @@ void LedController::setupPurpleAndGreenPalette()
     purple, purple, black,  black );
 }
 
-  
-    TBlendType   _blendType;
-    uint8_t _brightness;
-
-void LedController::fillLEDsFromPaletteColors(CRGBPalette16 palette, TBlendType blendType, uint8_t brightness, uint8_t colorIndex)
+void LedController::fillLEDsFromPaletteColors(CRGBPalette16 palette, TBlendType blendType, uint8_t brightness)
 {
+  uint8_t colorIndex = _startIndex;
   for( int i = 0; i < NUM_LEDS; i++) {
     _leds[i] = ColorFromPalette(palette, colorIndex, brightness, blendType);
     colorIndex += 3;
   }
+  _startIndex++;
 }
 
 /*

@@ -16,20 +16,18 @@ void LightPattern::initialize(LedController* pLedController)
   _palette = CloudColors_p;
   _blendType = BLEND;
   _brightness = 255;
-  _updatesPerSecond = 100;
-  _startIndex = 0;
+  _frequency = 100;
 }
 
 void LightPattern::display()
 {
-  display(_updatesPerSecond);
+  display(_frequency);
 }
 
-void LightPattern::display(int updatesPerSecond)
+void LightPattern::display(int frequency)
 {
-  _updatesPerSecond = updatesPerSecond;
-  _startIndex = _startIndex + 1;
-  _pLedController->fillLEDsFromPaletteColors(_palette, _blendType, _brightness, _startIndex);
-  _pLedController->displayPattern(_updatesPerSecond);
+  _frequency = frequency;
+  _pLedController->fillLEDsFromPaletteColors(_palette, _blendType, _brightness);
+  _pLedController->displayPattern(_frequency);
 }
 
