@@ -24,7 +24,7 @@ void Event::stop()
   if(!isStarted() || isCompleted())
     return;
     
-  _duration = _pClock->getCurrent() - _start;
+  _start = -1;
 }
 
 bool Event::isStarted()
@@ -34,6 +34,10 @@ bool Event::isStarted()
 
 bool Event::isCompleted()
 {
+  if(_duration == EVENT_DURATION_NONE)
+  {
+    return false;
+  }
   int end = _start + _duration;
   return end > _pClock->getCurrent();
 }

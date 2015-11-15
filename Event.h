@@ -2,6 +2,8 @@
 #define Event_h
 #include "Clock.h"
 
+#define EVENT_DURATION_NONE -1
+
 /*
  An event is a "pattern" being drawn for a specific durations
  */

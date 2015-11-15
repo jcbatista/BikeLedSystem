@@ -38,7 +38,7 @@ void setup() {
 void loop()
 {
   clock.tick();
-  ligthPatternMgr.display(0);
+  ligthPatternMgr.display();
   sensorController.process(); 
   //delay(500); 
   /* Display the results (acceleration is measured in m/s^2) */

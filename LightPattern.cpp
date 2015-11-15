@@ -10,6 +10,15 @@ LightPattern::LightPattern(int duration, Clock* pClock, LedController* pLedContr
   initialize(pLedController);
 }
 
+LightPattern::LightPattern(LightPatternOptions lightPatternOptions, Clock* pClock, LedController* pLedController): Event(pClock, lightPatternOptions.duration)
+{
+  initialize(pLedController);
+  _palette = lightPatternOptions.palette;
+  _blendType = BLEND;
+  _brightness = 255;
+  _frequency = 100;
+}
+
 void LightPattern::initialize(LedController* pLedController)
 {
   _pLedController = pLedController;
