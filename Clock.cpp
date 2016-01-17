@@ -1,5 +1,4 @@
 #include "Clock.h"
-
 #include <Arduino.h>
 
 Clock::Clock()

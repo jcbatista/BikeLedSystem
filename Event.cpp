@@ -3,15 +3,15 @@
 Event::Event(Clock* pClock)
 {
   _pClock = pClock;
-  _duration = -1;
-  _start = -1;
+  _duration = EVENT_DURATION_INFINITE;
+  _start = EVENT_STOPPED;
 }
 
-Event::Event(Clock* pClock, int duration)
+Event::Event(Clock* pClock, unsigned long  duration)
 {
   _pClock = pClock;
   _duration = duration;
-  _start = -1;
+  _start = EVENT_STOPPED;
 }
 
 void Event::start() 
@@ -21,24 +21,41 @@ void Event::start()
 
 void Event::stop()
 {
-  if(!isStarted() || isCompleted())
+  if(!isStarted() || isInfinite())
     return;
-    
-  _start = -1;
+
+  _start = EVENT_STOPPED;
+}
+
+bool Event::isInfinite()
+{
+  return _duration == EVENT_DURATION_INFINITE;
 }
 
 bool Event::isStarted()
 {
-  return _start != -1;
+  return _start != EVENT_STOPPED;
 }
 
 bool Event::isCompleted()
 {
-  if(_duration == EVENT_DURATION_NONE)
+  if(!isStarted())
+  {
+    return true; 
+  }
+
+  if(isInfinite())
   {
     return false;
   }
-  int end = _start + _duration;
-  return end > _pClock->getCurrent();
+
+  unsigned long end = _start + _duration;
+  bool completed = end < _pClock->getCurrent();
+  if(completed)
+  {
+    _start = EVENT_STOPPED;
+  }
+
+  return completed;
 }
 

@@ -6,10 +6,10 @@ class Clock
 public:
   Clock();
   void tick();
-  inline int getCurrent() { return _current; }
+  inline unsigned long  getCurrent() { return _current; }
   
 private:
-    int _current;
+    unsigned long  _current;
 };
 
 #endif // Clock_h

@@ -5,7 +5,7 @@ LightPattern::LightPattern(Clock* pClock, LedController* pLedController): Event(
   initialize(pLedController);
 }
 
-LightPattern::LightPattern(int duration, Clock* pClock, LedController* pLedController): Event(pClock, duration)
+LightPattern::LightPattern(unsigned long duration, Clock* pClock, LedController* pLedController): Event(pClock, duration)
 {
   initialize(pLedController);
 }
@@ -14,9 +14,10 @@ LightPattern::LightPattern(LightPatternOptions lightPatternOptions, Clock* pCloc
 {
   initialize(pLedController);
   _palette = lightPatternOptions.palette;
-  _blendType = BLEND;
-  _brightness = 255;
-  _frequency = 100;
+  _blendType = lightPatternOptions.blendType;
+  _brightness = lightPatternOptions.brightness;
+  _frequency = lightPatternOptions.frequency;
+  _duration = lightPatternOptions.duration;
 }
 
 void LightPattern::initialize(LedController* pLedController)
@@ -39,4 +40,3 @@ void LightPattern::display(int frequency)
   _pLedController->fillLEDsFromPaletteColors(_palette, _blendType, _brightness);
   _pLedController->displayPattern(_frequency);
 }
-

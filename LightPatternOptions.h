@@ -10,7 +10,7 @@ struct LightPatternOptions
     TBlendType    blendType;
     uint8_t       frequency;
     uint8_t       brightness;
-    int           duration = EVENT_DURATION_NONE;
+    unsigned long duration = EVENT_DURATION_INFINITE;
 };
 
 #endif // LightPatternOptions_h
