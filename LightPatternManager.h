@@ -6,7 +6,7 @@
 class LightPatternManager
 {
 	private:
-		static const int MaxPatterns = 2;
+		static const int MaxPatterns = 3;
 		LightPattern* _lightPatterns[MaxPatterns];
 		int _updateFrequency = 500;
         int _currentIndex = 0;

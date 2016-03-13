@@ -21,7 +21,7 @@ void Event::start()
 
 void Event::stop()
 {
-  if(!isStarted() || isInfinite())
+  if(!isStarted())
     return;
 
   _start = EVENT_STOPPED;

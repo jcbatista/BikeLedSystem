@@ -6,22 +6,25 @@
 #include <Adafruit_LSM303_U.h>
 #include "SensorController.h"
 #include "LedController.h"
+#include "GpsController.h"
 #include "Clock.h"
 #include "Event.h"
 #include "LightPatternManager.h"
 
 Clock clock;
 SensorController sensorController;
+GpsController gpsController;
+
 LedController ledController;
 LightPatternManager ligthPatternMgr(&clock, &ledController);
 
 // SoftwareSerial mySerial(10, 11); // RX, TX
 
 // Start button setup -> using the button master library
-#define BUTTON_PIN 4       //Connect a tactile button switch (or something similar)
+#define BUTTON_PIN 5       //Connect a tactile button switch (or something similar)
                            //from Arduino pin 2 to ground.
-#define PULLUP false        //To keep things simple, we use the Arduino's internal pullup resistor.
-#define INVERT false        //Since the pullup resistor will keep the pin high unless the
+#define PULLUP true        //To keep things simple, we use the Arduino's internal pullup resistor.
+#define INVERT true        //Since the pullup resistor will keep the pin high unless the
                            //switch is closed, this is negative logic, i.e. a high state
                            //means the button is NOT pressed. (Assuming a normally open switch.)
 #define DEBOUNCE_MS 20     //A debounce time of 20 milliseconds usually works well for tactile button switches.
@@ -37,18 +40,16 @@ void setup() {
   delay( 3000 ); // power-up safety delay
 
   Serial.begin(9600);
+  
   Serial.println("Accelerometer Test"); 
   Serial.println("");
 
-  sensorController.initialize();
+  //sensorController.initialize();
   ledController.initialize();
-
+  gpsController.initialize();
+  
   /* Display some basic information on this sensor */
   sensorController.displaySensorDetails();
-  
-  // set the data rate for the SoftwareSerial port
-  //mySerial.begin(4800);
-  //mySerial.println("Hello, world?");
 }
 
 int currentIndex = -1;
@@ -61,7 +62,7 @@ void loop() {
     Serial.println("Button Press!!!");
     ligthPatternMgr.next();
   }
-  
+
    ligthPatternMgr.display();
 
   int index = ligthPatternMgr.getCurrentIndex();
@@ -71,7 +72,8 @@ void loop() {
     Serial.println(buffer);
   }
 
-  sensorController.process(); 
+  gpsController.process();
+  //sensorController.process(); 
   
   //delay(500); 
   /* Display the results (acceleration is measured in m/s^2) */

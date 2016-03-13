@@ -11,7 +11,7 @@ void LedController::initialize()
   FastLED.setBrightness(  BRIGHTNESS );
   
   _currentPalette = RainbowColors_p;
-  _currentBlending = BLEND;
+  //_currentBlending = BLEND;
   _startIndex = 0;
   
   Serial.println("Exiting LedController::initialize()");
@@ -53,7 +53,7 @@ void LedController::changePalettePeriodically()
   }
   */
   _currentPalette = CloudColors_p;
-  _currentBlending = BLEND;
+  //_currentBlending = BLEND;
 }
 
 // This function fills the palette with totally random colors.
@@ -97,7 +97,8 @@ void LedController::fillLEDsFromPaletteColors(CRGBPalette16 palette, TBlendType 
 {
   uint8_t colorIndex = _startIndex;
   for( int i = 0; i < NUM_LEDS; i++) {
-    _leds[i] = ColorFromPalette(palette, colorIndex, brightness, blendType);
+    //_leds[i] = ColorFromPalette(palette, colorIndex, brightness, blendType);
+    _leds[i] = ColorFromPalette(palette, colorIndex, brightness);
     colorIndex += 3;
   }
   _startIndex++;

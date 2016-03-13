@@ -24,7 +24,7 @@ void LightPattern::initialize(LedController* pLedController)
 {
   _pLedController = pLedController;
   _palette = CloudColors_p;
-  _blendType = BLEND;
+  //_blendType = BLEND;
   _brightness = 255;
   _frequency = 100;
 }
